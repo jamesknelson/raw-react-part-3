@@ -1,27 +1,22 @@
-function navigate(to) {
-  var path = window.location.hash.substr(1);
-  var route = to.route;
+function navigatedToURI(newURI) {
+  var location = ROUTER.lookupURI(newURI);
+  var canonicalURI = location.name && ROUTER.makeURI(location.name, location.options);
 
-  switch (route.name) {
-  case 'editContact':
-    var key = to.params.id;
-    if (!(state.contacts.filter(function(contact) { return contact.key === key })[0])) {
-      route = ROUTER.get('404');
-    }
-    break;
+  if (canonicalURI && canonicalURI != newURI) {
+    navigateToLocation(location.name, location.options);
   }
-  
-  // Update the window's hash if it doesn't match the new route
-  if (path != route.path && route.name != "404") {
-    var canonicalPath = ROUTER.path(route.name, to.params);
+  else {
+    setState({location: location});
+  }
+}
 
-    window.location.replace(
-      window.location.pathname +
-      window.location.search +
-      '#/' +
-      canonicalPath
-    );
-  }
-    
-  setState({route: route, params: to.params || {}});
+function navigateToLocation(name, options) {
+  var URI = ROUTER.makeURI(name, options);
+
+  window.location.replace(
+    window.location.pathname +
+    window.location.search +
+    '#' +
+    URI
+  );
 }

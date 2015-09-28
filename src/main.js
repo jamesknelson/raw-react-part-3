@@ -5,9 +5,20 @@ var CONTACT_TEMPLATE = {
   errors: null,
 };
 
-var NAVIGATION_ROUTES = {
+var ROUTER = unirouter(
+  // Routes
+  { 
+    listContacts: 'GET /contacts',
+    editContact: 'GET /contacts/:id',
+  }, 
+  // Aliases
+  {
+    'GET /': 'listContacts',
+  }
+);
+
+var APPLICATION_CONFIG = {
   listContacts: {
-    path: 'contacts',
     component: ContactsView,
     actions: {
       update: updateNewContact,
@@ -17,30 +28,19 @@ var NAVIGATION_ROUTES = {
   },
 
   editContact: {
-    path: 'contacts/:id',
     component: ContactView,
     actions: {
       update: updateContactForm,
       submit: submitContactForm,
-      navigate: navigate,
     },
     state: ['contacts', 'contactForms'],
   },
-
-  '404': {
-    component: NotFoundView,
-  },
 };
-
-var NAVIGATION_REDIRECTS = {
-  '': 'listContacts',
-};
-
-var ROUTER = unirouter(NAVIGATION_ROUTES, NAVIGATION_REDIRECTS);
 
 
 // Initial state
 var state = {
+  location: null,
   contacts: [
     {key: '1', name: "James K Nelson", email: "james@jamesknelson.com", description: "Front-end Unicorn"},
     {key: '2', name: "Jim", email: "jim@example.com"},
@@ -61,7 +61,7 @@ function setState(changes) {
 
 // Handle receiving a new hash
 function handleNewHash() {
-  navigate(ROUTER.lookup(window.location.hash.substr(1)));
+  navigatedToURI(window.location.hash.substr(1));
 }
 
 // Handle browser navigation events

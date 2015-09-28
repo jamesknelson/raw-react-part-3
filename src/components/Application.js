@@ -1,17 +1,15 @@
 var Application = React.createClass({
-  displayName: 'Application',
-
   propTypes: {
-    route: React.PropTypes.object.isRequired,
-    params: React.PropTypes.object.isRequired,
+    location: React.PropTypes.object.isRequired,
   },
 
   render: function() {
+    var config = APPLICATION_CONFIG[this.props.location.name] || {component: NotFoundView};
     var self = this;
-    var props = {actions: this.props.route.actions, params: this.props.params};
-    (this.props.route.state || []).forEach(function(key) {
+    var props = {actions: config.actions, params: this.props.location.options};
+    (config.state || []).forEach(function(key) {
       props[key] = self.props[key];
     })
-    return React.createElement(this.props.route.component, props);
+    return React.createElement(config.component, props);
   },
 });

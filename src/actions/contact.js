@@ -39,11 +39,11 @@ function updateContactForm(contact) {
 
 
 function submitContactForm() {
-  var key = state.params.id;
+  var key = state.location.options.id;
   var contactForm = state.contactForms[key];
 
   if (!contactForm) {
-    navigate({route: ROUTER.get('listContacts')});
+    navigateToLocation('listContacts');
   }
   else {
     var contact = Object.assign({}, contactForm, {errors: {}});
@@ -59,7 +59,7 @@ function submitContactForm() {
         return x.key == key ? contact : x
       });
 
-      navigate({route: ROUTER.get('listContacts')});
+      navigateToLocation('listContacts');
     }
 
     setState(update);

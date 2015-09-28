@@ -13,14 +13,16 @@ var ContactView = React.createClass({
       this.props.contacts.filter(function(contact) { return contact.key == key })[0];
 
     return (
-      React.createElement('div', {className: 'ContactView'},
-        React.createElement('h1', {className: 'ContactView-title'}, "Edit Contact"),
-        React.createElement(ContactForm, {
-          value: contactForm,
-          onChange: this.props.actions.update,
-          onSubmit: this.props.actions.submit,
-        })
-      )
+      !contactForm
+        ? React.createElement(NotFoundView)
+        : React.createElement('div', {className: 'ContactView'},
+            React.createElement('h1', {className: 'ContactView-title'}, "Edit Contact"),
+            React.createElement(ContactForm, {
+              value: contactForm,
+              onChange: this.props.actions.update,
+              onSubmit: this.props.actions.submit,
+            })
+          )
     )
   },
 });

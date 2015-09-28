@@ -1,7 +1,6 @@
 var Link = React.createClass({
   propTypes: {
-    routeName: React.PropTypes.string.isRequired,
-    params: React.PropTypes.object,
+    location: React.PropTypes.object.isRequired,
     children: React.PropTypes.node.isRequired,
     className: React.PropTypes.string,
   },
@@ -12,7 +11,7 @@ var Link = React.createClass({
         'a',
         {
           className: 'Link ' + (this.props.className || ''),
-          href: '#'+ROUTER.path(this.props.routeName, this.props.params),
+          href: '#'+ROUTER.makeURI(this.props.location.name, this.props.location.options),
         },
         this.props.children
       )

@@ -11,8 +11,7 @@ var ContactItem = React.createClass({
       React.createElement('div', {className: 'ContactItem'},
         React.createElement(Link, {
           className: 'ContactItem-name',
-          routeName: 'editContact',
-          params: {id: this.props.id},
+          location: {name: 'editContact', options: {id: this.props.id}},
         }, this.props.name),
         React.createElement('div', {className: 'ContactItem-email'}, this.props.email),
         React.createElement('div', {className: 'ContactItem-description'}, this.props.description)
