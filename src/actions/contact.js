@@ -39,11 +39,11 @@ function updateContactForm(contact) {
 
 
 function submitContactForm() {
-  var key = state.location.options.id;
+  var key = state.location[1];
   var contactForm = state.contactForms[key];
 
   if (!contactForm) {
-    navigateToLocation('listContacts');
+    navigateToLocation('/contacts');
   }
   else {
     var contact = Object.assign({}, contactForm, {errors: {}});
@@ -59,7 +59,10 @@ function submitContactForm() {
         return x.key == key ? contact : x
       });
 
-      navigateToLocation('listContacts');
+      navigateToLocation('/contacts');
+    }
+    else {
+      contactForms[key] = contact;
     }
 
     setState(update);

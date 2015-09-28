@@ -1,5 +1,14 @@
+// Constants
+var CONTACT_TEMPLATE = {
+  name: "",
+  email: "",
+  description: "",
+  errors: null,
+};
+
 // Initial state
 var state = {
+  live: false,
   location: null,
   contacts: [
     {key: '1', name: "James K Nelson", email: "james@jamesknelson.com", description: "Front-end Unicorn"},
@@ -13,10 +22,12 @@ var state = {
 function setState(changes) {
   Object.assign(state, changes);
 
-  ReactDOM.render(
-    React.createElement(Application, state),
-    document.getElementById('react-app')
-  );
+  if (state.live) {
+    ReactDOM.render(
+      React.createElement(Application, state),
+      document.getElementById('react-app')
+    );
+  }
 }
 
 // Handle receiving a new hash

@@ -1,25 +1,24 @@
 var ContactForm = React.createClass({
   propTypes: {
     value: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    onSubmit: React.PropTypes.func.isRequired,
+    actions: React.PropTypes.object.isRequired,
   },
 
   onNameInput: function(e) {
-    this.props.onChange(Object.assign({}, this.props.value, {name: e.target.value}))
+    this.props.actions.onChange(Object.assign({}, this.props.value, {name: e.target.value}))
   },
 
   onEmailInput: function(e) {
-    this.props.onChange(Object.assign({}, this.props.value, {email: e.target.value}))
+    this.props.actions.onChange(Object.assign({}, this.props.value, {email: e.target.value}))
   },
 
   onDescriptionInput: function(e) {
-    this.props.onChange(Object.assign({}, this.props.value, {description: e.target.value}))
+    this.props.actions.onChange(Object.assign({}, this.props.value, {description: e.target.value}))
   },
 
   onSubmit: function(e) {
     e.preventDefault()
-    this.props.onSubmit()
+    this.props.actions.onSubmit()
   },
 
   render: function() {

@@ -1,22 +1,25 @@
 function navigatedToURI(newURI) {
-  var location = ROUTER.lookupURI(newURI);
-  var canonicalURI = location.name && ROUTER.makeURI(location.name, location.options);
+  // Strip leading and trailing '/'
+  newURI = newURI.replace(/^\/|\/$/g, '')
 
-  if (canonicalURI && canonicalURI != newURI) {
-    navigateToLocation(location.name, location.options);
+  if (newURI == '') {
+    // Redirect for default route
+    navigateToLocation('/contacts')
   }
   else {
-    setState({location: location});
+    // Otherwise update our application state
+    setState({location: newURI.split('/'), live: true});
   }
 }
 
-function navigateToLocation(name, options) {
-  var URI = ROUTER.makeURI(name, options);
+function navigateToLocation(newURI) {
+  var currentURI = window.location.hash.substr(1);
 
-  window.location.replace(
-    window.location.pathname +
-    window.location.search +
-    '#' +
-    URI
-  );
+  if (currentURI != newURI) {
+    setState({live: false});
+
+    window.location.replace(
+      window.location.pathname + window.location.search + '#' + newURI
+    );
+  }
 }

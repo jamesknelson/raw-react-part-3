@@ -9,9 +9,9 @@ var ContactItem = React.createClass({
   render: function() {
     return (
       React.createElement('div', {className: 'ContactItem'},
-        React.createElement(Link, {
+        React.createElement('a', {
           className: 'ContactItem-name',
-          location: {name: 'editContact', options: {id: this.props.id}},
+          href: '#/contacts/'+this.props.id,
         }, this.props.name),
         React.createElement('div', {className: 'ContactItem-email'}, this.props.email),
         React.createElement('div', {className: 'ContactItem-description'}, this.props.description)
