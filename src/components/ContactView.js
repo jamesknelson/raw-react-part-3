@@ -17,11 +17,13 @@ var ContactView = React.createClass({
         ? React.createElement(NotFoundView)
         : React.createElement('div', {className: 'ContactView'},
             React.createElement('h1', {className: 'ContactView-title'}, "Edit Contact"),
-            React.createElement(ContactForm, {
-              value: contactForm,
-              onChange: this.props.actions.update,
-              onSubmit: this.props.actions.submit,
-            })
+            React.createElement(
+              ContactForm,
+              Object.assign(
+                this.props.actions,
+                {value: contactForm}
+              )
+            )
           )
     )
   },

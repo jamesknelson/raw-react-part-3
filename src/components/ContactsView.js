@@ -13,11 +13,13 @@ var ContactsView = React.createClass({
           this.props.contacts.map(function(contact) {
             return React.createElement(ContactItem, Object.assign(contact, {id: contact.key}))
           })),
-        React.createElement(ContactForm, {
-          value: this.props.newContactForm,
-          onChange: this.props.actions.update,
-          onSubmit: this.props.actions.submit,
-        })
+        React.createElement(
+          ContactForm,
+          Object.assign(
+            this.props.actions,
+            {value: this.props.newContactForm}
+          )
+        )
       )
     )
   },
