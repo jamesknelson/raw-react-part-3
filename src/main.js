@@ -32,7 +32,7 @@ function setState(changes) {
 
 // Handle receiving a new hash
 function handleNewHash() {
-  navigatedToURI(window.location.hash.substr(1));
+  navigated(window.location.hash.substr(1));
 }
 
 // Handle browser navigation events

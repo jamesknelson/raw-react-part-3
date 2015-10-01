@@ -43,7 +43,7 @@ function submitContactForm() {
   var contactForm = state.contactForms[key];
 
   if (!contactForm) {
-    navigateToLocation('/contacts');
+    startNavigating('/contacts');
   }
   else {
     var contact = Object.assign({}, contactForm, {errors: {}});
@@ -59,7 +59,7 @@ function submitContactForm() {
         return x.key == key ? contact : x
       });
 
-      navigateToLocation('/contacts');
+      startNavigating('/contacts');
     }
     else {
       contactForms[key] = contact;
