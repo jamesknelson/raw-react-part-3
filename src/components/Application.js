@@ -7,14 +7,14 @@ var Application = React.createClass({
     switch (this.props.location[0]) {
       case 'contacts':
         if (this.props.location[1]) {
-          return React.createElement(ContactView, Object.assign({}, state, {
+          return React.createElement(ContactView, Object.assign({}, this.props, {
             id: this.props.location[1],
             onChangeContact: updateContactForm,
             onSubmitContact: submitContactForm,
           }))
         }
         else {
-          return React.createElement(ContactsView, Object.assign({}, state, {
+          return React.createElement(ContactsView, Object.assign({}, this.props, {
             onChangeContact: updateNewContact,
             onSubmitContact: submitNewContact,
           }));
