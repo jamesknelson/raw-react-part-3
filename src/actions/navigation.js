@@ -1,14 +1,14 @@
-function navigated(newURI) {
+function navigated() {
   // Strip leading and trailing '/'
-  newURI = newURI.replace(/^\/|\/$/g, '')
+  normalizedHash = window.location.hash.replace(/^#\/?|\/$/g, '');
 
-  if (newURI == '') {
+  if (normalizedHash == '') {
     // Redirect for default route
     startNavigating('/contacts')
   }
   else {
     // Otherwise update our application state
-    setState({location: newURI.split('/'), live: true});
+    setState({location: normalizedHash.split('/'), transitioning: false});
   }
 }
 
@@ -16,7 +16,7 @@ function startNavigating(newURI) {
   var currentURI = window.location.hash.substr(1);
 
   if (currentURI != newURI) {
-    setState({live: false});
+    setState({transitioning: true});
 
     window.location.replace(
       window.location.pathname + window.location.search + '#' + newURI

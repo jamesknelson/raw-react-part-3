@@ -8,7 +8,7 @@ var CONTACT_TEMPLATE = {
 
 // Initial state
 var state = {
-  live: false,
+  transitioning: false,
   location: null,
   contacts: [
     {key: '1', name: "James K Nelson", email: "james@jamesknelson.com", description: "Front-end Unicorn"},
@@ -22,7 +22,7 @@ var state = {
 function setState(changes) {
   Object.assign(state, changes);
 
-  if (state.live) {
+  if (!state.transitioning) {
     ReactDOM.render(
       React.createElement(Application, state),
       document.getElementById('react-app')
@@ -30,13 +30,8 @@ function setState(changes) {
   }
 }
 
-// Handle receiving a new hash
-function handleNewHash() {
-  navigated(window.location.hash.substr(1));
-}
-
 // Handle browser navigation events
-window.addEventListener('hashchange', handleNewHash, false);
+window.addEventListener('hashchange', navigated, false);
 
 // Set the initial route and render the app
-handleNewHash()
+navigated()
